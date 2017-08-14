@@ -1,0 +1,23 @@
+
+.MMM-NHL .header {
+	text-align: center;
+}
+.MMM-NHL .content {
+  width: 100%;
+  background-position: 11px 0;
+  background-repeat: no-repeat;
+  color: #fe0127;
+}
+.MMM-NHL .wrapper {
+	text-align: justify
+}
+.MMM-NHL .status {
+  color: #aeb3c1;
+  font-size: 18px;
+}
+.MMM-NHL .open {
+	
+	color: black;
+	font-size: 22px;
+	font-weight: bold;
+}
