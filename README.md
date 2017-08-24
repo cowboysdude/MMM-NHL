@@ -10,7 +10,7 @@
 
 ![](examples/start.png), ![](examples/focus.png)
 
-![](examples/Capture.PNG)
+![](examples/2.PNG)
 
 ## Installation
 
