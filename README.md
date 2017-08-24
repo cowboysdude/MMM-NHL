@@ -28,7 +28,7 @@
             module: 'MMM-NHL',
             position: 'bottom_left',
             config: {
-			focus_on: ['Rangers','Capitals'],
+			focus_on: ['Rangers','Capitals'],  //use only if you want to focus_on team or teams otherwise leave it out
 			header: true,     //See header true for yes, false for no.  Default if false
 			maxWidth: "30%",  // Suggested size for module width
 			headlogo: false,  //Use NHL logo in header .. must have header set to true to use
