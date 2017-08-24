@@ -120,6 +120,7 @@ Module.register("MMM-NHL", {
         this.today = "";
         this.activeItem = 0;
         this.rotateInterval = null;
+        this.updateInterval = null;
         this.scheduleUpdate();
     },
 
