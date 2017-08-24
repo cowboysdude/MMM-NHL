@@ -4,15 +4,17 @@
 
 * Now you can have the NHL scores on your mirror!!  
 
+* You can view entire NHL or just the team or teams you want with focus_on!
+
 ## Examples
 
-![](images/Capture.PNG), ![](images/boxborder.png)
+![](examples/start.png), ![](examples/focus.png)
 
-![](images/center.png), ![](images/header.png)
+![](examples/Capture.PNG)
 
 ## Installation
 
-* `git clone https://github.com/cowboysdude/MMM-Fracing` into the `~/MagicMirror/modules` directory.
+* `git clone https://github.com/cowboysdude/MMM-NHL` into the `~/MagicMirror/modules` directory.
 
 ## Installation caveat
 
@@ -22,19 +24,17 @@
 
 ## Config.js entry and options
 
-    {
-        module: 'MMM-Fracing',
-        position: 'top_left',
-        config: {
-            rotateInterval: 20 * 1000,  // every 20 seconds
-            header: false,              // Use header true or false
-            headerText: "F1 Racing ",   // header should be true to use this
-            showStandings: true,        // Show F1 Points Standings
-            showSchedule: true,         // Show F1 Racing Schedule
-            showLastRace: true          // Show the last race results
-            colorBox: true              // Show titles in green boxes with white text or using colorBox white boxes with black text
-        }
-    },
+           {
+            module: 'MMM-NHL',
+            position: 'bottom_left',
+            config: {
+			focus_on: ['Rangers','Capitals'],
+			header: true,     //See header true for yes, false for no.  Default if false
+			maxWidth: "30%",  // Suggested size for module width
+			headlogo: false,  //Use NHL logo in header .. must have header set to true to use
+			rotateInterval: 20 * 1000 //rotates to next match every 20 seconds
+			}
+             },
 	
 
 
