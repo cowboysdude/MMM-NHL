@@ -14,7 +14,7 @@ Module.register("MMM-NHL", {
         animationSpeed: 10,
         initialLoadDelay: 4950, // 0 seconds delay
         retryDelay: 1500,
-        maxWidth: "48%",
+        maxWidth: "28%",
         fadeSpeed: 11,
         rotateInterval: 5 * 1000, //20 seconds
         header: false,
@@ -112,10 +112,10 @@ Module.register("MMM-NHL", {
         var end_time = year + '-' + month + '-' + day;
 
         // Set locale.
-        this.url = this.getUrl();
+         //this.url = this.getUrl();
         //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2016-02-04&endDate=2016-02-05&expand=schedule.linescore";
-        //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2016-10-04&endDate=2017-10-05&expand=schedule.linescore";
-        //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+start_time+"&endDate="+end_time+"&expand=schedule.linescore";
+       //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-09-22&endDate=2017-10-05&expand=schedule.linescore";
+        this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+start_time+"&endDate="+end_time+"&expand=schedule.linescore";
         this.nhl = {};
         this.today = "";
         this.activeItem = 0;
@@ -126,7 +126,6 @@ Module.register("MMM-NHL", {
 
     processNHL: function(data) {
         this.nhl = data.games;
-        console.log(this.nhl);
         this.loaded = true;
     },
 
@@ -152,11 +151,11 @@ Module.register("MMM-NHL", {
 
     getUrl: function() {
         var url = null;
+        var testdate = moment(startDate).add(-1, 'days').format("YYYY-MM-DD");
         var startDate = moment().format("YYYY-MM-DD");
-        var endDate = moment(startDate, "YYYY-MM-DD").add(1, 'days');
+        var endDate = moment(startDate).add(1, 'days').format("YYYY-MM-DD");
 
-
-        if (startDate < "2017-10-04") {
+        if (startDate != startDate) {
             url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-10-04&endDate=2017-10-05&expand=schedule.linescore";
         } else {
             url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=" + startDate + "&endDate=" + endDate + "&expand=schedule.linescore";
@@ -210,7 +209,8 @@ Module.register("MMM-NHL", {
                 this.activeItem = 0;
             }
             var nhl = this.nhl[keys[this.activeItem]];
-            console.log(nhl);
+        //console.log(this.config.teamsArray[nhl.teams.home.team.id]);    
+         //console.log(this.config.teamsArray[nhl.teams.away.team.id]);   
 
             var NHLTable = document.createElement("table");
             NHLTable.setAttribute('style', 'table-layout:fixed;');
@@ -225,7 +225,7 @@ Module.register("MMM-NHL", {
             } else if (nhl.linescore.currentPeriod == "Final") {
                 tcolumn.innerHTML = "Final";
             } else {
-                tcolumn.innerHTML = nhl.linescore.currentPeriodTimeRemaining;
+                tcolumn.innerHTML = nhl.linescore.currentPeriodOrdinal + " " + nhl.linescore.currentPeriodTimeRemaining;
             }
 
             locationRow.appendChild(tcolumn);
@@ -427,6 +427,7 @@ Module.register("MMM-NHL", {
             venueHome.innerHTML = "Venue: " + nhl.venue.name;
             VenueTemp.appendChild(venueHome);
             NHLTable.appendChild(VenueTemp);
+       
         }
 
         //} else {
