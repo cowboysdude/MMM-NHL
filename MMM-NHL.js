@@ -112,9 +112,6 @@ Module.register("MMM-NHL", {
         var end_time = year + '-' + month + '-' + day;
 
         // Set locale.
-         //this.url = this.getUrl();
-        //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2016-02-04&endDate=2016-02-05&expand=schedule.linescore";
-       //this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-09-22&endDate=2017-10-05&expand=schedule.linescore";
         this.url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate="+start_time+"&endDate="+end_time+"&expand=schedule.linescore";
         this.nhl = {};
         this.today = "";
@@ -149,20 +146,6 @@ Module.register("MMM-NHL", {
         this.sendSocketNotification('GET_NHL', this.url);
     },
 
-    getUrl: function() {
-        var url = null;
-        var testdate = moment(startDate).add(-1, 'days').format("YYYY-MM-DD");
-        var startDate = moment().format("YYYY-MM-DD");
-        var endDate = moment(startDate).add(1, 'days').format("YYYY-MM-DD");
-
-        if (startDate != startDate) {
-            url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=2017-10-04&endDate=2017-10-05&expand=schedule.linescore";
-        } else {
-            url = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=" + startDate + "&endDate=" + endDate + "&expand=schedule.linescore";
-        }
-        return url;
-    },
-
     socketNotificationReceived: function(notification, payload) {
         if (notification === "NHL_RESULT") {
             this.processNHL(payload);
@@ -176,7 +159,6 @@ Module.register("MMM-NHL", {
 
     getDom: function() {
 
-
         var pDir = "<img class=img src=modules/MMM-NHL/images/";
 
         var humordiv = document.createElement("div");
@@ -185,13 +167,15 @@ Module.register("MMM-NHL", {
 
         var today = moment().format('M-D-YYYY');
         var wrapper = document.createElement("div");
+      if (this.nhl.length > 0 ){  
         if (this.config.header == true) {
             var header = document.createElement("header");
             header.style.maxWidth = this.config.maxWidth;
-            header.classList.add("small","bright")
             if (this.config.headlogo != false){
+            header.classList.add("small","bright")
 			 header.innerHTML = "<img src=modules/MMM-NHL/images/nhlsmall.png>&nbsp;&nbsp;NHL " + today;	
 			} else {
+			header.classList.add("small","bright","tdate")	
 			header.innerHTML = today;	
 			}
             wrapper.appendChild(header);
@@ -202,15 +186,14 @@ Module.register("MMM-NHL", {
             wrapper.innerHTML = "<img class=img src = modules/MMM-NHL/images/nhl.png>" + " " + "Dropping the puck...";
             return wrapper;
         }
-
+        
+		
         var keys = Object.keys(this.nhl);
         if (keys.length > 0) {
             if (this.activeItem >= keys.length) {
                 this.activeItem = 0;
             }
             var nhl = this.nhl[keys[this.activeItem]];
-        //console.log(this.config.teamsArray[nhl.teams.home.team.id]);    
-         //console.log(this.config.teamsArray[nhl.teams.away.team.id]);   
 
             var NHLTable = document.createElement("table");
             NHLTable.setAttribute('style', 'table-layout:fixed;');
@@ -283,10 +266,6 @@ Module.register("MMM-NHL", {
             aimage.innerHTML = pDir + this.config.logoArray[nhl.teams.away.team.id] + "> " + this.config.teamsArray[nhl.teams.away.team.id] + " <font color=#76D7C4>(" + nhl.teams.away.leagueRecord.wins + " - " + nhl.teams.away.leagueRecord.losses + ")</font>";
             Homerow.appendChild(aimage);
             NHLTable.appendChild(Homerow);
-
-
-            // logo pDir+this.config.logoArray[nhl.teams.away.team.id]+"> "+
-            //+ " <font size=2%>("+nhl.teams.away.leagueRecord.wins+" - "+nhl.teams.away.leagueRecord.losses+")</font>"
 
 
             var aspacer = document.createElement("td");
@@ -430,13 +409,13 @@ Module.register("MMM-NHL", {
        
         }
 
-        //} else {
-        //	var noGame = document.createElement("div");
-        //	noGame.setAttribute("colspan", 12);
-        //	noGame.classList.add("small","bright");
-        //  noGame.innerHTML = "No Matches scheduled";	
-        //NHLTable.appendChild(noGame);
-        //	  }
+        } else {
+        	var noGame = document.createElement("div");
+        	noGame.setAttribute("colspan", 12);
+        	noGame.classList.add("small","bright");
+          noGame.innerHTML = "No NHL Matches scheduled for <br>"+today;	
+        wrapper.appendChild(noGame);
+        	  }
         return wrapper;
     },
 });

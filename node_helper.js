@@ -28,7 +28,7 @@ module.exports = NodeHelper.create({
 if(this.config.focus_on.includes(this.config.teamsArray[games.teams.home.team.id]) || this.config.focus_on.includes(this.config.teamsArray[games.teams.away.team.id])){
 	                	return true;
 						} else {
-							return false;
+						return false;
 						}
 					});
 				}	
